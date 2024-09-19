@@ -10,6 +10,7 @@ import CabinForm from "./CabinForm";
 import Row from "../../ui/Row";
 import { useDeleteCabin } from "./useDeleteCabin";
 import { useCreateCabin } from "./useCreateCabin";
+import Modal from "../../ui/Modal";
 
 const TableRow = styled.div`
   display: grid;
@@ -81,16 +82,22 @@ export default function CabinRow({ cabin }) {
             <button disabled={isCreating} onClick={handleDuplicate}>
               <HiSquare2Stack />
             </button>
-            <button onClick={() => setShowEditCabin((show) => !show)}>
-              <HiPencil />
-            </button>
             <button onClick={() => deleteCabin(id)} disabled={isDeleting}>
               <HiTrash />
             </button>
+            <Modal>
+              <Modal.Open opens="edit-form">
+                <button>
+                  <HiPencil />
+                </button>
+              </Modal.Open>
+              <Modal.Window name="edit-form">
+                <CabinForm cabin={cabin} />
+              </Modal.Window>
+            </Modal>
           </div>
         </Row>
       </TableRow>
-      {showEditCabin && <CabinForm cabin={cabin} />}
     </>
   );
 }

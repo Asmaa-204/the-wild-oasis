@@ -6,10 +6,11 @@ import FormRow from "../../ui/FormRow";
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Textarea from "../../ui/Textarea";
+
 import { useCreateCabin } from "./useCreateCabin";
 import { useEditCabin } from "./useEditCabin";
 
-function CabinForm({ cabin }) {
+function CabinForm({ cabin, type, onClose }) {
   const { isCreating, mutate: createCabin } = useCreateCabin();
   const { isEditing, mutate: editCabin } = useEditCabin();
 
@@ -49,7 +50,7 @@ function CabinForm({ cabin }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form type={type} onSubmit={handleSubmit(onSubmit)}>
       <FormRow label="Cabin name" error={errors?.name?.message}>
         <Input
           disabled={isCreating || isEditing}
@@ -124,7 +125,7 @@ function CabinForm({ cabin }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button $variation="secondary" type="reset">
+        <Button onClick={() => onClose?.()} $variation="secondary" type="reset">
           Cancel
         </Button>
         <Button>{isEditSession ? "Edit cabin" : "Create cabin"}</Button>
