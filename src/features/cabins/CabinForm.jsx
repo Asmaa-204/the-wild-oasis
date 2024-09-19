@@ -93,7 +93,7 @@ function CabinForm({ cabin, type, onClose }) {
           {...register("discount", {
             required: "Can't be empty, make it at least 0",
             validate: (value) =>
-              value <= getValues("regularPrice") ||
+              parseFloat(value) <= parseFloat(getValues("regularPrice")) ||
               "Discount should be less than regular price",
           })}
         />
