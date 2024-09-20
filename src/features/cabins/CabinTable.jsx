@@ -9,14 +9,11 @@ import Table from "../../ui/Table";
 import { getCabins } from "../../services/apiCabins";
 
 export default function CabinTable() {
-  const {
-    data: cabins,
-    isPending,
-    error,
-  } = useQuery({
+  const { data: cabins, isPending } = useQuery({
     queryKey: ["cabins"],
     queryFn: getCabins,
   });
+  
   const [searchParams] = useSearchParams();
   const filterBy = searchParams?.get("discount") || "all";
 
@@ -35,9 +32,7 @@ export default function CabinTable() {
   const sortBy = searchParams.get("sortBy") || "startDate-asc";
   const [field, direction] = sortBy.split("-");
   const multiplier = direction === "asc" ? 1 : -1;
-  filteredCabins.sort(
-    (a, b) => (a[field] - b[field]) * multiplier
-  );
+  filteredCabins.sort((a, b) => (a[field] - b[field]) * multiplier);
   return (
     <Menus>
       <Table role="table" columns="0.6fr 1.8fr 2.2fr 1fr 1fr 1fr">
