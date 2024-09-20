@@ -35,12 +35,15 @@ const FilterButton = styled.button`
   }
 `;
 
-function Filter({ options, filterBy }) {
+function Filter({ options, filterBy, resetParams }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentFilter = searchParams?.get(filterBy) || options?.at(0)?.value;
 
   function handleClick(value) {
     searchParams.set(filterBy, value);
+    resetParams?.map((resetParam) =>
+      searchParams.set(resetParam.name, resetParam.value)
+    );
     setSearchParams(searchParams);
   }
 
