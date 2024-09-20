@@ -1,25 +1,20 @@
-import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
 
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import Menus from "../../ui/Menus";
 import Table from "../../ui/Table";
+import Empty from "../../ui/Empty";
 
-import { getCabins } from "../../services/apiCabins";
+import { useCabins } from "./useCabins";
 
 export default function CabinTable() {
-  const { data: cabins, isPending } = useQuery({
-    queryKey: ["cabins"],
-    queryFn: getCabins,
-  });
-  
   const [searchParams] = useSearchParams();
   const filterBy = searchParams?.get("discount") || "all";
-
-  console.log(filterBy);
+  const { cabins, isPending } = useCabins();
 
   if (isPending) return <Spinner />;
+  if (!cabins.length) return <Empty resource="Cabin" />;
 
   let filteredCabins;
 
@@ -45,6 +40,7 @@ export default function CabinTable() {
           <div></div>
         </Table.Header>
         <Table.Body
+          resource="Cabin"
           data={filteredCabins}
           render={(cabin) => <CabinRow cabin={cabin} key={cabin.id} />}
         />

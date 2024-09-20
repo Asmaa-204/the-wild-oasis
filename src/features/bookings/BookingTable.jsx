@@ -2,13 +2,16 @@ import BookingRow from "./BookingRow";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
+import Empty from "../../ui/Empty";
+import Pagination from "../../ui/Pagination";
 
 import { useBookings } from "./useBookings";
 
 function BookingTable() {
-  const { bookings, isLoagingBookings } = useBookings();
+  const { bookings, count, isPending } = useBookings();
 
-  if (isLoagingBookings) return <Spinner />;
+  if (isPending) return <Spinner />;
+  if (!bookings?.length) return <Empty resource="Booking" />;
 
   return (
     <Menus>
@@ -28,6 +31,9 @@ function BookingTable() {
             <BookingRow key={booking.id} booking={booking} />
           )}
         />
+        <Table.Footer>
+          <Pagination numResults={count} />
+        </Table.Footer>
       </Table>
     </Menus>
   );
