@@ -73,21 +73,23 @@ function CheckinBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
-      <Box>
-        {!hasBreakfast && (
-          <Checkbox
-            onChange={() => {
-              setChecked(false);
-              setAddedBreakfast((prev) => !prev);
-            }}
-            disabled={isCheckingIn}
-            checked={hasBreakfast || addedBreakfast}
-            id="breakfast"
-          >
-            Add breakfast with extra price {formatCurrency(breakfastPrice)}
-          </Checkbox>
-        )}
-      </Box>
+      {!hasBreakfast && (
+        <Box>
+          {!hasBreakfast && (
+            <Checkbox
+              onChange={() => {
+                setChecked(false);
+                setAddedBreakfast((prev) => !prev);
+              }}
+              disabled={isCheckingIn}
+              checked={hasBreakfast || addedBreakfast}
+              id="breakfast"
+            >
+              Add breakfast with extra price {formatCurrency(breakfastPrice)}
+            </Checkbox>
+          )}
+        </Box>
+      )}
 
       <Box>
         <Checkbox

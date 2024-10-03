@@ -89,7 +89,7 @@ export default function Menus({ children }) {
 
 function List({ children, id }) {
   const { selectedId, close } = useContext(MenusContext);
-  const ref = useClickOutside(true, close);
+  const ref = useClickOutside(false, close);
 
   if (selectedId !== id) return;
 
@@ -99,7 +99,8 @@ function List({ children, id }) {
 function Toggle({ id }) {
   const { open, close, selectedId } = useContext(MenusContext);
 
-  function handleClick() {
+  function handleClick(e) {
+    e.stopPropagation();
     selectedId === "" || selectedId !== id ? open(id) : close();
   }
 

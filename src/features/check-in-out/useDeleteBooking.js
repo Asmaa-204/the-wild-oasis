@@ -9,7 +9,7 @@ export function useDeleteBooking() {
     mutationFn: deleteBooking,
     onSuccess: () => {
       toast.success(`Booking is successfully deleted`);
-      queryClient.invalidateQueries(["bookings"]);
+      queryClient.invalidateQueries({ queryKey: ["bookings"] });
     },
     onError: (err) => {
       toast.error(err.message);
