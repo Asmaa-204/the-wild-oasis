@@ -84,6 +84,13 @@ npm run preview
 npm run lint
 ```
 
+## Troubleshooting
+
+- **NPM Vulnerabilities**: After running `npm install`, if you see vulnerability warnings, run `npm audit fix` to address fixable issues. For Vite-related vulnerabilities, update to the latest version with `npm install vite@latest`.
+- **Bundle Size Warning**: The production build may warn about large chunks. This is expected for a comprehensive app with many features. To optimize, consider implementing code-splitting with dynamic imports.
+- **Supabase Configuration**: Make sure your Supabase project has the correct database schema and RLS policies set up. Refer to the course materials for detailed setup instructions.
+- **Node.js Version**: Ensure you have Node.js 16 or higher. You can check with `node --version`.
+
 ## Acknowledgments
 
 - Built as part of jonas schmedtmann React course project
